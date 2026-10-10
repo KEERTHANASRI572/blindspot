@@ -37,20 +37,21 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# CORS setup: allows FRONTEND_URL, all Vercel domains, and localhost
+# CORS setup: explicitly allow Vercel domains, localhost, and custom frontend
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://blindspot-livid.vercel.app",
+    "https://blindspot-a2gx15c1r-we-977d.vercel.app",
 ]
-if settings.FRONTEND_URL:
+if settings.FRONTEND_URL and settings.FRONTEND_URL != "*":
     clean_url = settings.FRONTEND_URL.strip().rstrip("/")
-    if clean_url and clean_url != "*" and clean_url not in allowed_origins:
+    if clean_url not in allowed_origins:
         allowed_origins.append(clean_url)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins if settings.FRONTEND_URL != "*" else ["*"],
+    allow_origins=allowed_origins,
     allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
@@ -67,7 +68,17 @@ def on_startup():
     except Exception as e:
         print(f"Warning during startup DB init: {e}")
 
-# --- HEALTH ---
+# --- ROOT & HEALTH ---
+@app.get("/")
+def root():
+    return {
+        "app": "BLINDSPOT API",
+        "status": "ok",
+        "docs": "/docs",
+        "health": "/health",
+        "version": "2.0.0"
+    }
+
 @app.get("/health")
 @app.get("/api/health")
 def health_check():

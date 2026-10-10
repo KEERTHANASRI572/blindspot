@@ -1,0 +1,215 @@
+[
+  {
+    "id": "topic-deadlock",
+    "title": "Deadlock in Operating Systems",
+    "domain": "Operating Systems",
+    "description": "Understanding Coffman conditions, safe states, Banker's algorithm, and Resource Allocation Graphs under multi-instance constraints.",
+    "raw_text": "A deadlock occurs when a set of concurrent processes are permanently blocked because each process holds resources and waits for resources held by others in the set. For a deadlock to arise, four Coffman conditions must hold simultaneously: (1) Mutual Exclusion: at least one resource must be non-shareable. (2) Hold and Wait: a process holding at least one resource is waiting to acquire additional resources held by other processes. (3) No Preemption: resources cannot be forcibly confiscated; they can only be released voluntarily by the holding process. (4) Circular Wait: a closed chain of processes exists such that each process holds at least one resource needed by the next process in the chain.\n\nDeadlock Handling Strategies include:\n1. Deadlock Prevention: Eliminating at least one of the four necessary conditions statically (e.g., imposing total resource ordering to eliminate circular wait, or requiring processes to request all resources at start).\n2. Deadlock Avoidance: The OS dynamically evaluates every resource request. If granting the request leaves the system in a 'Safe State' (where a safe sequence exists to satisfy maximum claims of all processes), the request is granted; otherwise, the process waits. The Banker's Algorithm is the classic avoidance algorithm.\n3. Deadlock Detection and Recovery: Allowing deadlocks to occur, periodically running detection algorithms (such as cycle detection in Resource Allocation Graphs for single-instance resources or Banker's detection for multi-instance), and recovering by terminating processes or preempting resources.\n\nCrucial Transfer Nuance: A cycle in a Resource Allocation Graph is a sufficient condition for deadlock IF AND ONLY IF every resource type has exactly one instance. If resource types have multiple instances, a cycle is only a necessary condition, NOT sufficient. A cycle may exist while another process holding a resource instance finishes and breaks the cycle.",
+    "chunks": [
+      {
+        "id": "chk-deadlock-1",
+        "title": "Coffman Conditions & Definition",
+        "text": "A deadlock occurs when a set of concurrent processes are permanently blocked because each process holds resources and waits for resources held by others in the set. Four Coffman conditions must hold simultaneously: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait."
+      },
+      {
+        "id": "chk-deadlock-2",
+        "title": "Handling Strategies & Banker's Algorithm",
+        "text": "Deadlock Prevention statically invalidates one Coffman condition. Deadlock Avoidance dynamically evaluates safe states where a safe execution sequence exists (e.g., Banker's Algorithm). Deadlock Detection allows deadlock and periodically checks for cycles or unresolvable claims."
+      },
+      {
+        "id": "chk-deadlock-3",
+        "title": "Resource Allocation Graphs & Multi-Instance Nuance",
+        "text": "A cycle in a Resource Allocation Graph guarantees deadlock ONLY when all resource types possess single instances. In multi-instance systems, a cycle is necessary but not sufficient, as external processes can release instances and resolve the dependency."
+      }
+    ],
+    "concepts": [
+      {
+        "id": "c-coffman",
+        "name": "Coffman Conditions",
+        "summary": "The 4 simultaneous requirements for deadlock: mutual exclusion, hold-and-wait, no-preemption, circular-wait.",
+        "source_chunk_ids": ["chk-deadlock-1"]
+      },
+      {
+        "id": "c-prevention",
+        "name": "Deadlock Prevention",
+        "summary": "Static protocol eliminating at least one Coffman condition prior to runtime.",
+        "source_chunk_ids": ["chk-deadlock-2"]
+      },
+      {
+        "id": "c-avoidance",
+        "name": "Deadlock Avoidance & Banker's Algorithm",
+        "summary": "Dynamic runtime verification that state transitions maintain a viable safe sequence for all maximum process claims.",
+        "source_chunk_ids": ["chk-deadlock-2"]
+      },
+      {
+        "id": "c-rag-multi",
+        "name": "Resource Allocation Graph & Multi-Instance Cycles",
+        "summary": "Cycle vs deadlock distinction: single-instance cycles guarantee deadlock; multi-instance cycles require knot/claim analysis.",
+        "source_chunk_ids": ["chk-deadlock-3"]
+      }
+    ],
+    "edges": [
+      { "from": "c-coffman", "to": "c-prevention", "type": "prerequisite_of" },
+      { "from": "c-coffman", "to": "c-avoidance", "type": "prerequisite_of" },
+      { "from": "c-prevention", "to": "c-avoidance", "type": "contrasts_with" },
+      { "from": "c-coffman", "to": "c-rag-multi", "type": "causes" }
+    ],
+    "sample_scenarios": [
+      {
+        "id": "scen-os-1",
+        "target_concept_ids": ["c-rag-multi", "c-coffman"],
+        "bloom_level": "analyze",
+        "scenario": "You are debugging a microservices payment router. Process P1 holds 1 instance of Resource R1 (which has 2 total instances) and waits for R2. Process P2 holds 1 instance of R2 (2 total instances) and waits for R1. A third independent Process P3 holds the 2nd instance of R1 and the 2nd instance of R2, and is currently executing without waiting for any other resources.",
+        "question": "An automated alert triggers screaming 'Cycle detected in dependency graph! System is deadlocked!'. Is the system deadlocked? Explain why or why not, detailing the sequence of execution.",
+        "expected_reasoning_points": [
+          "Identify that resources R1 and R2 have multiple instances (2 each).",
+          "Observe that Process P3 holds instances of both R1 and R2 without waiting on any process.",
+          "Conclude that P3 will finish execution and release its instances of R1 and R2.",
+          "Recognize that when P3 releases its resources, P1 or P2 can acquire what they need and finish, resolving the cycle.",
+          "Correctly state that the system is NOT deadlocked despite the presence of a cycle."
+        ],
+        "misconception_link": "MISC-OS-01",
+        "source_chunk_ids": ["chk-deadlock-3"]
+      }
+    ]
+  },
+  {
+    "id": "topic-db-indexing",
+    "title": "Database Indexing & B+ Trees",
+    "domain": "DBMS",
+    "description": "Mastering physical layout of clustered vs secondary B+ Tree indexes, write amplification, and composite index prefix ordering.",
+    "raw_text": "Database indexes accelerate read query performance at the expense of write throughput and storage footprint. The dominant index structure in relational databases (PostgreSQL, MySQL InnoDB) is the B+ Tree. In a B+ Tree, all data records or primary row pointers reside exclusively in leaf nodes linked sequentially, while internal nodes store guide keys and child pointers to facilitate O(log N) balanced search.\n\nClustered vs Secondary Indexes:\n- Clustered Index: Determines the physical organization of table rows on disk. Leaf pages contain the actual table row data. A table can possess only ONE clustered index (usually the Primary Key).\n- Secondary Index: A separate B+ Tree where leaf nodes store the indexed key along with the corresponding primary key locator (not the full row). A secondary index query requiring non-indexed columns must perform a secondary lookup ('bookmark lookup' or 'index hop') back to the clustered index.\n\nComposite Indexes and Leftmost Prefix Rule:\nAn index created on multiple columns (col_A, col_B, col_C) sorts data primarily by col_A, then by col_B within identical col_A values, and finally by col_C. Therefore, queries filtering on (col_A) or (col_A, col_B) utilize the index tree structure. Queries filtering solely on (col_B) or (col_B, col_C) cannot perform a tree seek from the root because the top-level tree partition is ordered strictly on col_A.\n\nWrite Amplification Tradeoff: Every INSERT, UPDATE, or DELETE on an indexed table requires synchronous B+ Tree page splits, rebalancing, and write-ahead log entries across EVERY secondary index defined on that table.",
+    "chunks": [
+      {
+        "id": "chk-db-1",
+        "title": "B+ Tree Structure & Leaf Node Organization",
+        "text": "B+ Trees store guide keys in internal nodes and all actual data or row pointers in sequentially linked leaf nodes, maintaining balanced O(log N) depth."
+      },
+      {
+        "id": "chk-db-2",
+        "title": "Clustered vs Secondary Indexes",
+        "text": "A clustered index defines physical row storage on disk (max 1 per table). Secondary indexes store indexed columns plus primary key pointers, requiring secondary lookups for unindexed attributes."
+      },
+      {
+        "id": "chk-db-3",
+        "title": "Composite Index Leftmost Prefix Rule & Write Costs",
+        "text": "Composite indexes (A, B, C) are sorted hierarchically. Queries without the leading prefix (A) cannot use the tree seek. Every index adds write amplification during insert/update/delete."
+      }
+    ],
+    "concepts": [
+      {
+        "id": "c-btree-arch",
+        "name": "B+ Tree Physical Architecture",
+        "summary": "Internal routing nodes with data exclusively clustered and chained in leaf pages.",
+        "source_chunk_ids": ["chk-db-1"]
+      },
+      {
+        "id": "c-clustered-sec",
+        "name": "Clustered vs Secondary Indexing",
+        "summary": "Physical primary row storage vs secondary B+ Tree pointer lookups.",
+        "source_chunk_ids": ["chk-db-2"]
+      },
+      {
+        "id": "c-leftmost-prefix",
+        "name": "Leftmost Prefix Rule",
+        "summary": "Hierarchical multi-column B+ Tree seek constraint requiring leading column predicates.",
+        "source_chunk_ids": ["chk-db-3"]
+      },
+      {
+        "id": "c-write-amp",
+        "name": "Index Write Amplification",
+        "summary": "Degradation of write throughput due to synchronous secondary index page rebalancing.",
+        "source_chunk_ids": ["chk-db-3"]
+      }
+    ],
+    "edges": [
+      { "from": "c-btree-arch", "to": "c-clustered-sec", "type": "prerequisite_of" },
+      { "from": "c-btree-arch", "to": "c-leftmost-prefix", "type": "prerequisite_of" },
+      { "from": "c-clustered-sec", "to": "c-write-amp", "type": "causes" },
+      { "from": "c-clustered-sec", "to": "c-leftmost-prefix", "type": "part_of" }
+    ],
+    "sample_scenarios": [
+      {
+        "id": "scen-db-1",
+        "target_concept_ids": ["c-leftmost-prefix", "c-clustered-sec"],
+        "bloom_level": "apply",
+        "scenario": "An e-commerce order table with 50,000,000 rows has a composite index on (tenant_id, created_at, status). A junior developer deploys an analytics dashboard query: 'SELECT COUNT(*) FROM orders WHERE created_at >= '2026-01-01' AND status = 'COMPLETED''. The query takes 45 seconds and spikes CPU to 100%.",
+        "question": "Explain why the database engine failed to perform a fast B+ Tree range seek on the composite index, and propose the optimal index modification.",
+        "expected_reasoning_points": [
+          "Explain that the composite index is ordered primarily by 'tenant_id'.",
+          "Identify that the query omits 'tenant_id', violating the Leftmost Prefix Rule.",
+          "Explain that because the leading column is missing, the engine cannot navigate down the B+ Tree branch and must perform a full index scan or table scan.",
+          "Recommend adding a separate composite index on (created_at, status) or including tenant_id in the query filter."
+        ],
+        "misconception_link": "MISC-DB-02",
+        "source_chunk_ids": ["chk-db-3"]
+      }
+    ]
+  },
+  {
+    "id": "topic-tcp-udp",
+    "title": "TCP vs UDP & Transport Layer Dynamics",
+    "domain": "Computer Networks",
+    "description": "Dissecting Head-of-Line blocking, sliding window flow control vs AIMD congestion control, and Fast Retransmit triggers.",
+    "raw_text": "The Transport Layer provides logical communication between application processes on different hosts. TCP (Transmission Control Protocol) is connection-oriented, reliable, and byte-stream based, featuring sliding-window flow control and AIMD congestion control. UDP (User Datagram Protocol) is connectionless, lightweight, and datagram-oriented, providing unreliable best-effort delivery without connection handshakes, retransmissions, or ordering guarantees.\n\nHead-of-Line (HoL) Blocking: Because TCP guarantees in-order byte delivery to the application socket, if segment #3 in a stream is lost in transit, subsequent segments (#4, #5, #6) received successfully by the OS kernel buffer CANNOT be passed to the application until segment #3 is retransmitted and acknowledged. In HTTP/2 multiplexing, a single lost packet on the shared TCP connection stalls all concurrent streams.\n\nFlow Control vs Congestion Control:\n- Flow Control (rwnd): Prevents the sender from overflowing the RECEIVER'S socket buffer. The receiver advertises its available buffer window in TCP header acknowledgments.\n- Congestion Control (cwnd): Prevents senders from overwhelming the INTERMEDIATE NETWORK routers. Handled via Slow Start, Congestion Avoidance, and Fast Recovery (AIMD).\n\nFast Retransmit: Rather than waiting for the sluggish Retransmission Timeout (RTO) timer to expire, a TCP sender that receives THREE duplicate ACKs (4 identical ACKs total for the same sequence number) immediately infers packet loss and retransmits the missing segment.",
+    "chunks": [
+      {
+        "id": "chk-net-1",
+        "title": "TCP vs UDP Fundamentals & Byte-Stream Guarantees",
+        "text": "TCP offers reliable in-order byte stream delivery with handshakes, whereas UDP delivers independent datagrams with minimal overhead and no ordering or retransmission."
+      },
+      {
+        "id": "chk-net-2",
+        "title": "Head-of-Line Blocking & HTTP/2 Multi-Stream Impact",
+        "text": "TCP in-order delivery creates Head-of-Line blocking: one dropped packet halts delivery of all subsequent arrived packets in kernel buffers to application sockets."
+      },
+      {
+        "id": "chk-net-3",
+        "title": "Flow Control vs Congestion Control & Fast Retransmit",
+        "text": "Flow control protects the receiver window (rwnd); Congestion control protects network links (cwnd). Fast Retransmit triggers loss recovery upon 3 duplicate ACKs before RTO timeout."
+      }
+    ],
+    "concepts": [
+      {
+        "id": "c-hol-blocking",
+        "name": "Head-of-Line (HoL) Blocking",
+        "summary": "In-order stream delivery stalling all subsequent packets until missing segments arrive.",
+        "source_chunk_ids": ["chk-net-2"]
+      },
+      {
+        "id": "c-flow-vs-cong",
+        "name": "Flow vs Congestion Control",
+        "summary": "Receiver socket buffer boundary (rwnd) versus network bottleneck router capacity (cwnd).",
+        "source_chunk_ids": ["chk-net-3"]
+      },
+      {
+        "id": "c-fast-retransmit",
+        "name": "TCP Fast Retransmit & 3-Dup-ACK",
+        "summary": "Immediate loss inference and retransmission upon 3 duplicate ACKs without timer expiry.",
+        "source_chunk_ids": ["chk-net-3"]
+      }
+    ],
+    "edges": [
+      { "from": "c-hol-blocking", "to": "c-flow-vs-cong", "type": "part_of" },
+      { "from": "c-flow-vs-cong", "to": "c-fast-retransmit", "type": "causes" },
+      { "from": "c-fast-retransmit", "to": "c-hol-blocking", "type": "contrasts_with" }
+    ],
+    "sample_scenarios": [
+      {
+        "id": "scen-net-1",
+        "target_concept_ids": ["c-fast-retransmit", "c-flow-vs-cong"],
+        "bloom_level": "analyze",
+        "scenario": "A high-frequency trading server sends telemetry to a remote logger over TCP. The link has a Round Trip Time of 50ms and Retransmission Timeout (RTO) configured to 200ms. Segment 100 is dropped due to transient router noise. Segments 101, 102, 103, and 104 arrive intact at the receiver within 5ms of each other.",
+        "question": "Does the sender wait 200ms for the RTO timer to expire before retransmitting Segment 100? Detail what packets and ACKs are exchanged.",
+        "expected_reasoning_points": [
+          "As segments 101, 102, 103 arrive, the receiver sends duplicate ACKs requesting next expected sequence (Segment 100).",
+          "When the 3rd duplicate ACK arrives at the sender (4th ACK for segment 100 overall), TCP Fast Retransmit triggers immediately.",
+          "The sender retransmits Segment 100 within approximately 1 RTT (50ms), far before the 200ms RTO timer expires.",
+          "Conclude that sender does NOT wait 200ms."
+        ],
+        "misconception_link": "MISC-NET-01",
+        "source_chunk_ids": ["chk-net-3"]
+      }
+    ]
+  }
+]

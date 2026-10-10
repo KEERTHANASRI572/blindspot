@@ -1,0 +1,271 @@
+[
+  {
+    "id": "course-physics-friction",
+    "title_en": "Physics: Newton's Laws & Friction in Everyday Motion",
+    "title_ta": "இயற்பியல்: நியூட்டனின் விதிகள் மற்றும் உராய்வு",
+    "title_hi": "भौतिकी: न्यूटन के नियम और घर्षण",
+    "description_en": "Understand forces, inertia, and how friction actually propels and stabilizes vehicles and walkers.",
+    "description_ta": "விசைகள், நிலைமம் மற்றும் உராய்வு எவ்வாறு வாகனங்களை இயக்குகிறது என்பதைப் புரிந்து கொள்ளுங்கள்.",
+    "description_hi": "बल, जड़त्व और घर्षण वाहनों और मनुष्यों को कैसे गति प्रदान करता है, इसे समझें।",
+    "difficulty": "Easy",
+    "notes": "Newton's First Law states an object remains in uniform motion unless acted upon by a net external force. A car cruising at 60 km/h on a flat highway does not need a forward net force to keep moving; the engine force merely balances opposing drag and rolling friction so the net force is zero. Friction is often misunderstood as purely resistive. In reality, static friction between your shoes and the ground pushes you forward when walking. When accelerating a car, the drive wheels push backwards against the asphalt, and static friction pushes the car forward. In elevators, when accelerating upwards, the normal force from the floor increases (N = m(g + a)), making you feel heavier, whereas during downward acceleration (N = m(g - a)), your apparent weight decreases. In free fall, the apparent weight becomes zero even though gravitational force remains fully active.",
+    "questions": [
+      {
+        "id": "q-phys-1",
+        "text_en": "A runner accelerates from rest on a dry running track. In what direction does the friction force from the ground act on the soles of their running shoes?",
+        "text_ta": "ஒரு ஓட்டப்பந்தய வீரர் ஓடுதளத்தில் இருந்து முன்னோக்கி வேகமெடுக்கிறார். தரைக்கும் காலணிக்கும் இடையிலான உராய்வு விசை எந்த திசையில் செயல்படுகிறது?",
+        "text_hi": "एक धावक दौड़ के ट्रैक पर विराम अवस्था से आगे की ओर गति बढ़ाता है। जमीन से उसके जूते के तलवों पर घर्षण बल किस दिशा में कार्य करता है?",
+        "key_points": [
+          "Static friction acts in the forward direction",
+          "The runner pushes backwards on the ground",
+          "Ground pushes forward on the runner (Newton's 3rd Law)"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "Think about what would happen if the track were covered in frictionless ice."},
+          {"step": 2, "text": "Analogy: When you paddle a canoe backwards through water, the boat is pushed forward."},
+          {"step": 3, "text": "Walkthrough: The shoe sole pushes backwards against the ground. By Newton's Third Law, the ground must exert an equal force forward."},
+          {"step": 4, "text": "Solution: The friction force acts FORWARD on the shoes, providing the necessary net force to accelerate the runner forward."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "ஓடுதளம் உராய்வற்ற பனிக்கட்டியாக இருந்தால் என்ன நடக்கும் என்று யோசியுங்கள்."},
+          {"step": 2, "text": "உவமை: படகின் துடுப்பை பின்னோக்கி தள்ளும்போது, படகு முன்னோக்கி நகர்கிறது."},
+          {"step": 3, "text": "விளக்கம்: காலணி தரையை பின்னோக்கி தள்ளுகிறது. நியூட்டனின் மூன்றாம் விதிப்படி தரை காலணியை முன்னோக்கி தள்ளுகிறது."},
+          {"step": 4, "text": "தீர்வு: உராய்வு விசை முன்னோக்கி செயல்பட்டு ஓட்டப்பந்தய வீரரை முன்னோக்கி நகர்த்துகிறது."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "सोचें कि यदि ट्रैक घर्षण रहित बर्फ से ढका हो तो क्या होगा।"},
+          {"step": 2, "text": "सादृश्य: जब आप नाव के चप्पू को पीछे धकेलते हैं, तो नाव आगे बढ़ती है।"},
+          {"step": 3, "text": "विवरण: जूता जमीन को पीछे धकेलता है। न्यूटन के तीसरे नियम के अनुसार जमीन जूते को आगे धकेलती है।"},
+          {"step": 4, "text": "समाधान: घर्षण बल आगे की दिशा में कार्य करता है और धावक को आगे की ओर गति प्रदान करता है।"}
+        ]
+      },
+      {
+        "id": "q-phys-2",
+        "text_en": "A delivery van is moving at a steady 50 km/h on a straight, level road. What is the net horizontal force acting on the van?",
+        "text_ta": "ஒரு விநியோக வாகனம் நேரான சமதள சாலையில் 50 கி.மீ/மணி நிலையான வேகத்தில் செல்கிறது. வாகனத்தின் மீது செயல்படும் நிகர கிடைமட்ட விசை என்ன?",
+        "text_hi": "एक डिलीवरी वैन एक सीधी, समतल सड़क पर 50 किमी/घंटा की स्थिर गति से चल रही है। वैन पर लगने वाला कुल क्षैतिज बल क्या है?",
+        "key_points": [
+          "Velocity is constant, so acceleration is zero",
+          "Net force = mass * acceleration = 0",
+          "Engine driving force equals opposing drag and friction"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "Is the van speeding up, slowing down, or turning?"},
+          {"step": 2, "text": "Analogy: A tug-of-war where both teams pull with exactly 500 N of force; the rope does not accelerate."},
+          {"step": 3, "text": "Walkthrough: Newton's First Law states that constant velocity implies zero acceleration (a = 0). Since F_net = m*a, F_net must be zero."},
+          {"step": 4, "text": "Solution: The net horizontal force is exactly ZERO because forward engine force balances air resistance and friction."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "வாகனம் வேகமடைகிறதா, மெதுவாகிறதா அல்லது திரும்புகிறதா?"},
+          {"step": 2, "text": "உவமை: இரு அணிகளும் சம பலத்துடன் கயிறு இழுக்கும்போது கயிறு நகராது."},
+          {"step": 3, "text": "விளக்கம்: வேகம் மாறாமல் இருக்கும்போது முடுக்கம் சுழியாகும் (a = 0). எனவே F = m*a = 0."},
+          {"step": 4, "text": "தீர்வு: முன்னோக்கிய விசை எதிர்ப்புகளுக்கு சமமாக இருப்பதால் நிகர விசை சுழியாகும் (Zero)."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "क्या वैन की गति बढ़ रही है, घट रही है या वह मुड़ रही है?"},
+          {"step": 2, "text": "सादृश्य: रस्साकशी का खेल जहां दोनों टीमें समान बल से खींच रही हैं; रस्सी में कोई त्वरण नहीं होता।"},
+          {"step": 3, "text": "विवरण: स्थिर गति का अर्थ है त्वरण शून्य (a = 0)। इसलिए कुल बल F = m*a = 0 होगा।"},
+          {"step": 4, "text": "समाधान: कुल क्षैतिज बल बिल्कुल शून्य (ZERO) है क्योंकि इंजन बल हवा के प्रतिरोध और घर्षण को संतुलित करता है।"}
+        ]
+      },
+      {
+        "id": "q-phys-3",
+        "text_en": "You step on a bathroom weighing scale inside a high-rise elevator. Just as the elevator begins accelerating rapidly upward from the ground floor, what happens to the scale reading?",
+        "text_ta": "நீங்கள் ஒரு லிஃப்டின் உள்ளே எடை பார்க்கும் இயந்திரத்தின் மீது நிற்கிறீர்கள். லிஃப்ட் தரைத்தளத்திலிருந்து மேல்நோக்கி முடுக்கமடையத் தொடங்கும் போது எடை அளவு என்னவாகும்?",
+        "text_hi": "आप लिफ्ट के अंदर वजन मापने वाली मशीन पर खड़े हैं। जैसे ही लिफ्ट ऊपर की ओर तेजी से गति पकड़ती है, वजन के पाठ्यांक पर क्या प्रभाव पड़ता है?",
+        "key_points": [
+          "Scale measures normal contact force N, not just gravity mg",
+          "Upward acceleration requires N - mg = ma, so N = m(g + a)",
+          "Scale reading temporarily increases"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "What does a weighing scale actually measure: the pull of Earth, or the upward push of its surface against your feet?"},
+          {"step": 2, "text": "Analogy: When you jump upwards, you push down harder against the ground before lifting off."},
+          {"step": 3, "text": "Walkthrough: To accelerate your mass upward at rate 'a', the floor must push up with normal force N = m(g + a)."},
+          {"step": 4, "text": "Solution: The scale reading INCREASES above your normal weight during the upward acceleration phase."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "எடை பார்க்கும் கருவி எதை அளவிடுகிறது: புவியீர்ப்பு விசையையா அல்லது தரை தரும் எதிர்விசையையா?"},
+          {"step": 2, "text": "உவமை: நீங்கள் மேலே குதிக்கும் போது தரையை அதிக பலத்துடன் கீழ்நோக்கி அழுத்துகிறீர்கள்."},
+          {"step": 3, "text": "விளக்கம்: மேல்நோக்கி முடுக்கம் பெற N = m(g + a) விசை தேவைப்படுகிறது."},
+          {"step": 4, "text": "தீர்வு: மேல்நோக்கி முடுக்கமடையும் போது எடையின் அளவு தற்காலிகமாக அதிகரிக்கும்."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "वजन मापने वाली मशीन वास्तव में क्या मापती है: गुरुत्वाकर्षण या तल का सामान्य प्रतिक्रिया बल?"},
+          {"step": 2, "text": "सादृश्य: जब आप ऊपर कूदते हैं, तो आप जमीन को अधिक जोर से नीचे दबाते हैं।"},
+          {"step": 3, "text": "विवरण: ऊपर की ओर त्वरण 'a' के लिए N = m(g + a) बल की आवश्यकता होती है।"},
+          {"step": 4, "text": "समाधान: ऊपर की ओर त्वरण के दौरान वजन का पाठ्यांक आपके सामान्य वजन से अधिक हो जाता है।"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "course-math-bayes",
+    "title_en": "Mathematics: Conditional Probability & Bayes' Rule in Real Life",
+    "title_ta": "கணிதம்: நிபந்தனை நிகழ்தகவு மற்றும் பேயஸ் விதி",
+    "title_hi": "गणित: सप्रतिबंध प्रायिकता और बेयस प्रमेय",
+    "description_en": "Master how evidence updates belief and avoid the base-rate fallacy in medical testing and fraud detection.",
+    "description_ta": "மருத்துவ பரிசோதனைகள் மற்றும் மோசடி கண்டறிதலில் ஆதாரங்கள் எவ்வாறு நம்பிக்கையை புதுப்பிக்கின்றன என்பதை அறியுங்கள்.",
+    "description_hi": "चिकित्सा परीक्षण और धोखाधड़ी का पता लगाने में बेस-रेट भ्रम से बचें और साक्ष्यों के आधार पर निर्णय लेना सीखें।",
+    "difficulty": "Medium",
+    "notes": "Conditional probability P(A|B) measures the likelihood of event A occurring given that event B has already occurred. Bayes' Theorem formalizes how new evidence updates our prior probability: P(A|B) = [P(B|A) * P(A)] / P(B). A common cognitive trap is the Base-Rate Fallacy (neglecting prior probability). For example, consider a rare disease affecting 1 in 1,000 people (0.1% base rate). Suppose a diagnostic test has a 99% accuracy rate (both sensitivity and specificity). If a random person tests positive, many assume there is a 99% chance they are sick. In reality, in a population of 100,000 people: 100 people are sick (99 test positive), while 99,900 are healthy (1% of 99,900 = 999 false positives). The total positive tests are 99 + 999 = 1,098, so the actual probability of having the disease given a positive test is only 99 / 1,098 ≈ 9.0%.",
+    "questions": [
+      {
+        "id": "q-math-1",
+        "text_en": "A rare bug affects 1 out of 1,000 code repositories. A security scanner is 95% accurate (5% false positive rate). If the scanner flags a random repository, is it more likely infected or a false alarm?",
+        "text_ta": "1,000-ல் 1 குறியீட்டு களஞ்சியத்தில் (code repository) ஒரு தீவிர பிழை உள்ளது. ஸ்கேனர் 95% துல்லியமானது. ஒரு களஞ்சியம் எச்சரிக்கப்பட்டால், அது உண்மையான பிழையா அல்லது தவறான எச்சரிக்கையா?",
+        "text_hi": "1,000 में से 1 कोड रिपोजिटरी में एक गंभीर बग है। सुरक्षा स्कैनर 95% सटीक है (5% गलत अलार्म दर)। यदि स्कैनर किसी रिपोजिटरी को चिह्नित करता है, तो क्या यह वास्तविक बग होने की अधिक संभावना है या गलत अलार्म?",
+        "key_points": [
+          "Base rate is 0.1% (1 in 1,000)",
+          "False positives (5% of 999 ≈ 50) far outnumber true positives (0.95 * 1 ≈ 1)",
+          "It is overwhelmingly more likely to be a false alarm"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "Out of 1,000 repositories, how many are actually infected versus clean?"},
+          {"step": 2, "text": "Analogy: Looking for a needle in a haystack with a metal detector that beeps on 5% of straw."},
+          {"step": 3, "text": "Walkthrough: In 1,000 repos, 1 is infected (1 true positive). Among 999 clean repos, 5% will trigger false alarms (≈ 50 false positives)."},
+          {"step": 4, "text": "Solution: It is about 50 times MORE LIKELY to be a false alarm (only ~2% chance of real infection) due to the base rate."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "1,000 களஞ்சியங்களில் எத்தனை உண்மையில் பாதிக்கப்பட்டுள்ளன, எத்தனை சுத்தமாக உள்ளன?"},
+          {"step": 2, "text": "உவமை: வைக்கோல் போரில் ஊசியைத் தேடும் போது டிடெக்டர் 5% வைக்கோலுக்கும் எச்சரிக்கை ஒலி எழுப்புவது போன்றது."},
+          {"step": 3, "text": "விளக்கம்: 1,000 களஞ்சியங்களில் 1 உண்மையான பிழை இருக்கும். ஆனால் 999 சுத்தமான களஞ்சியங்களில் 50 தவறான எச்சரிக்கைகள் வரும்."},
+          {"step": 4, "text": "தீர்வு: அடிப்படை விகிதம் குறைவாக இருப்பதால் இது தவறான எச்சரிக்கையாக இருக்கவே 50 மடங்கு அதிக வாய்ப்புள்ளது."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "1,000 रिपोजिटरी में से कितनी वास्तव में संक्रमित हैं और कितनी साफ़?"},
+          {"step": 2, "text": "सादृश्य: घास के ढेर में सुई ढूंढना, जहां डिटेक्टर 5% घास पर भी गलत बीप करता है।"},
+          {"step": 3, "text": "विवरण: 1,000 में से 1 वास्तविक बग है, जबकि 999 साफ़ रिपोजिटरी में से लगभग 50 गलत अलार्म उत्पन्न होंगे।"},
+          {"step": 4, "text": "समाधान: बेस-रेट कम होने के कारण यह गलत अलार्म (False Alarm) होने की संभावना 50 गुना अधिक है।"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "course-chem-equilibrium",
+    "title_en": "Chemistry: Le Chatelier's Principle & Dynamic Equilibrium",
+    "title_ta": "வேதியியல்: லீ சாட்லியர் கொள்கை மற்றும் இயக்க சமநிலை",
+    "title_hi": "रसायन विज्ञान: ले शातेलिए का नियम और गतिशील साम्यावस्था",
+    "description_en": "Understand how closed chemical systems respond to pressure, temperature, and concentration perturbations.",
+    "description_ta": "மூடிய வேதியியல் அமைப்புகள் அழுத்தம், வெப்பநிலை மற்றும் அடர்த்தி மாற்றங்களுக்கு எவ்வாறு பதிலளிக்கின்றன என்பதைப் புரிந்து கொள்ளுங்கள்.",
+    "description_hi": "रासायनिक प्रणालियाँ दबाव, तापमान और सांद्रता में परिवर्तन पर कैसे प्रतिक्रिया करती हैं, इसे समझें।",
+    "difficulty": "Medium",
+    "notes": "Dynamic chemical equilibrium occurs in a reversible reaction when the rate of the forward reaction equals the rate of the reverse reaction, keeping concentrations constant over time. It is crucial to distinguish between equal rates and equal quantities: at equilibrium, reactant and product concentrations are rarely equal. Le Chatelier's Principle states that if a system at equilibrium is subjected to a disturbance in temperature, pressure, or concentration, the system will shift its equilibrium position to counteract that change. For example, opening a carbonated soft drink bottle releases pressurized CO2 gas. To counteract this loss of gaseous reactant, carbonic acid decomposes into CO2 and water, causing bubbles to form and the beverage to slowly go flat. Catalysts speed up both the forward and reverse reactions equally; they help the system reach equilibrium faster but DO NOT change the equilibrium yield.",
+    "questions": [
+      {
+        "id": "q-chem-1",
+        "text_en": "When you open a sealed soda can, a loud hiss escapes and bubbles rapidly form throughout the liquid. Using Le Chatelier's Principle, explain why the gas dissolved in the liquid turns into bubbles.",
+        "text_ta": "குளிர்பான கேனைத் திறக்கும்போது வாயு வெளியேறி குமிழ்கள் வேகமாக உருவாகின்றன. லீ சாட்லியர் கொள்கையின்படி கரைந்துள்ள வாயு ஏன் குமிழ்களாக மாறுகிறது என்பதை விளக்குக.",
+        "text_hi": "जब आप सोडा का डिब्बा खोलते हैं, तो गैस निकलती है और बुलबुले तेजी से बनते हैं। ले शातेलिए के नियम का उपयोग करके बताएं कि तरल में घुली गैस बुलबुले में क्यों बदल जाती है।",
+        "key_points": [
+          "Opening the can drops the headspace gas pressure",
+          "The equilibrium: H2CO3(aq) <=> H2O(l) + CO2(g)",
+          "The system shifts to the right (towards gas) to counteract the pressure loss"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "What happens to the pressure of CO2 gas above the liquid when you open the seal?"},
+          {"step": 2, "text": "Analogy: A crowded room where an exit door is opened; people naturally stream out toward the newly emptied space."},
+          {"step": 3, "text": "Walkthrough: Releasing the seal drops the CO2 partial pressure. To counteract this reduction, dissolved carbonic acid decomposes to produce more CO2 gas."},
+          {"step": 4, "text": "Solution: The equilibrium shifts toward the gas-forming side to replace the lost pressure, creating visible bubbles."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "கேனைத் திறக்கும்போது திரவத்தின் மேலுள்ள CO2 வாயுவின் அழுத்தம் என்னவாகிறது?"},
+          {"step": 2, "text": "உவமை: கூட்ட நெரிசலான அறையில் ஒரு கதவு திறக்கப்பட்டால் மக்கள் வெளியேறுவது போன்றது."},
+          {"step": 3, "text": "விளக்கம்: மூடி திறக்கப்பட்டதால் CO2 அழுத்தம் குறைகிறது. இதை ஈடுசெய்ய கரைந்துள்ள கார்போனிக் அமிலம் CO2 வாயுவாக மாறுகிறது."},
+          {"step": 4, "text": "தீர்வு: அழுத்தக் குறைவை ஈடுகட்ட சமநிலை வாயு உருவாகும் திசையில் நகர்வதால் குமிழ்கள் வெளிவருகின்றன."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "सील खोलने पर तरल के ऊपर CO2 गैस के दबाव का क्या होता है?"},
+          {"step": 2, "text": "सादृश्य: भीड़ भरे कमरे में निकास द्वार खुलने पर लोग खाली जगह की ओर बढ़ते हैं।"},
+          {"step": 3, "text": "विवरण: सील खोलने से CO2 का आंशिक दबाव कम हो जाता है। इसे संतुलित करने के लिए घुली हुई कार्बनिक एसिड विघटित होकर CO2 गैस बनाती है।"},
+          {"step": 4, "text": "समाधान: दबाव की कमी की भरपाई के लिए साम्यावस्था गैस बनने की दिशा में स्थानांतरित हो जाती है, जिससे बुलबुले बनते हैं।"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "course-cs-deadlock",
+    "title_en": "Computer Science: Operating Systems Deadlock & Resource Allocation",
+    "title_ta": "கணினி அறிவியல்: இயக்க முறைமை முடக்கம் (Deadlock)",
+    "title_hi": "कंप्यूटर विज्ञान: ऑपरेटिंग सिस्टम डेडलॉक और संसाधन आवंटन",
+    "description_en": "Learn why resource holding causes system freezes and how multi-unit allocation prevents deadlock.",
+    "description_ta": "வளங்களை வைத்திருப்பதால் கணினி ஏன் முடங்குகிறது மற்றும் பல அலகு ஒதுக்கீடு எவ்வாறு முடக்கத்தைத் தடுக்கிறது என்பதை அறிக.",
+    "description_hi": "संसाधनों के रुकने से सिस्टम क्यों हैंग होता है और मल्टी-यूनिट आवंटन डेडलॉक को कैसे रोकता है, इसे समझें।",
+    "difficulty": "Easy",
+    "notes": "A deadlock in concurrent computing is a state where a set of processes are permanently blocked because each process holds a resource and waits for another resource held by another process. For a deadlock to occur, all four Coffman conditions must hold simultaneously: 1. Mutual Exclusion (resources cannot be shared concurrently); 2. Hold and Wait (processes hold allocated resources while requesting new ones); 3. No Preemption (resources cannot be forcibly confiscated); 4. Circular Wait (a circular chain of processes exists where each waits for a resource held by the next). A common misconception is that ANY cycle of dependencies causes deadlock. In single-instance resource systems, a cycle always means deadlock. However, in multi-instance resource systems, a cycle does NOT guarantee deadlock if another process holding an instance of that resource can finish, release its instance, and break the cycle.",
+    "questions": [
+      {
+        "id": "q-cs-1",
+        "text_en": "Two food delivery drivers on motorbikes arrive at opposite ends of a narrow one-lane bridge simultaneously. Neither can move forward without the other reversing, and both refuse to back up. Why is this a deadlock?",
+        "text_ta": "இரு உணவு விநியோக ஓட்டுநர்கள் ஒரு குறுகிய ஒரு வழி பாலத்தின் இரு முனைகளிலும் ஒரே நேரத்தில் சந்திக்கின்றனர். ஒருவர் பின்வாங்காமல் மற்றவர் செல்ல முடியாது, இருவரும் பின்வாங்க மறுக்கின்றனர். இது ஏன் முடக்கம் (Deadlock)?",
+        "text_hi": "दो डिलीवरी बाइकर्स एक संकरे एक-लेन पुल के दोनों सिरों पर एक साथ पहुंचते हैं। कोई भी पीछे हटने को तैयार नहीं है। यह डेडलॉक क्यों है?",
+        "key_points": [
+          "Mutual exclusion (one lane bridge cannot fit two bikes)",
+          "Hold and wait (each occupies half the bridge while demanding the other half)",
+          "No preemption (neither can be forcibly pushed off)",
+          "Circular wait (A waits for B, B waits for A)"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "Can both motorbikes occupy the same section of the narrow bridge at the same time?"},
+          {"step": 2, "text": "Analogy: Two people trying to pass through a narrow doorway simultaneously while refusing to yield."},
+          {"step": 3, "text": "Walkthrough: The bridge is a mutually exclusive resource. Driver A holds side 1 and waits for side 2; Driver B holds side 2 and waits for side 1. With no preemption and no willingness to release, all 4 Coffman conditions are met."},
+          {"step": 4, "text": "Solution: All four Coffman conditions (mutual exclusion, hold & wait, no preemption, circular wait) are simultaneously satisfied, creating an unresolvable permanent freeze."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "ஒரே நேரத்தில் இரு பைக்குகளும் குறுகிய பாலத்தை கடக்க முடியுமா?"},
+          {"step": 2, "text": "உவமை: குறுகிய வாசலில் இருவர் ஒரே நேரத்தில் நுழைய முயன்று வழிவிட மறுப்பது போன்றது."},
+          {"step": 3, "text": "விளக்கம்: பாலம் ஒரு பகிர்ந்தளிக்க முடியாத வளம். ஓட்டுநர் A பகுதி 1-ஐ பிடித்துக்கொண்டு 2-க்காக காத்திருக்கிறார்; B பகுதி 2-ஐ பிடித்துக்கொண்டு 1-க்காக காத்திருக்கிறார்."},
+          {"step": 4, "text": "தீர்வு: நான்கு காஃப்மேன் நிபந்தனைகளும் (Coffman conditions) ஒரே நேரத்தில் பொருந்துவதால் இது ஒரு நிரந்தர முடக்கமாகும்."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "क्या दोनों बाइक एक ही समय में संकरे पुल के एक ही हिस्से पर रह सकती हैं?"},
+          {"step": 2, "text": "सादृश्य: दो लोग एक संकरे दरवाजे से एक साथ निकलने की कोशिश कर रहे हैं और कोई पीछे नहीं हट रहा।"},
+          {"step": 3, "text": "विवरण: पुल एक अनन्य संसाधन है। ड्राइवर A लेन 1 पर है और 2 की प्रतीक्षा कर रहा है; ड्राइवर B लेन 2 पर है और 1 की प्रतीक्षा कर रहा है।"},
+          {"step": 4, "text": "समाधान: चारों कॉफ़मैन स्थितियां (Coffman conditions) एक साथ पूरी होती हैं, जिससे एक स्थायी डेडलॉक बनता है।"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "course-bio-osmosis",
+    "title_en": "Biology: Cellular Respiration & Osmosis in Living Cells",
+    "title_ta": "உயிரியல்: செல்லுலார் சுவாசம் மற்றும் சவ்வூடு பரவல் (Osmosis)",
+    "title_hi": "जीव विज्ञान: कोशिकीय श्वसन और परासरण (Osmosis)",
+    "description_en": "Understand cell membrane water potential, tonicity, and why pure water IV injections are dangerous.",
+    "description_ta": "செல் சவ்வு நீர் அழுத்தம் மற்றும் தூய நீர் ஊசி ஏன் ஆபத்தானது என்பதைப் புரிந்து கொள்ளுங்கள்.",
+    "description_hi": "कोशिका झिल्ली जल विभव और शुद्ध पानी का इंजेक्शन क्यों खतरनाक है, इसे समझें।",
+    "difficulty": "Easy",
+    "notes": "Osmosis is the passive net movement of water molecules across a selectively permeable membrane from an area of higher water potential (lower solute concentration) to an area of lower water potential (higher solute concentration). Tonicity describes how an extracellular solution affects cell volume. An isotonic solution (such as 0.9% saline) has the same solute concentration as the cell interior, resulting in zero net water movement. A hypertonic solution has higher solute concentration, pulling water out of the cell and causing it to shrivel (crenation in animal cells, plasmolysis in plant cells). Conversely, a hypotonic solution (such as pure distilled water) has lower solute concentration; water rapidly rushes into the cell. Because animal red blood cells lack rigid cellulose cell walls, injecting pure distilled water into a patient's bloodstream causes red blood cells to swell and burst (hemolysis), leading to fatal complications.",
+    "questions": [
+      {
+        "id": "q-bio-1",
+        "text_en": "A marathon runner collapses from severe dehydration. A paramedic administers a 0.9% sterile saline IV drip instead of pure 100% distilled water. Why would injecting pure distilled water directly into their blood be life-threatening?",
+        "text_ta": "நீரிழப்பால் மயங்கிய மாரத்தான் ஓட்டப்பந்தய வீரருக்கு 100% தூய நீருக்கு பதிலாக 0.9% உப்பு நீர் (Saline) செலுத்தப்படுகிறது. தூய நீரை நேரடியாக ரத்தத்தில் செலுத்தினால் என்ன ஆபத்து ஏற்படும்?",
+        "text_hi": "गंभीर निर्जलीकरण से पीड़ित धावक को 100% शुद्ध पानी के बजाय 0.9% सलाइन ड्रिप दी जाती है। सीधे रक्त में शुद्ध पानी का इंजेक्शन लगाना जानलेवा क्यों होगा?",
+        "key_points": [
+          "Pure water is hypotonic relative to red blood cells",
+          "Water moves down its potential gradient into the cells via osmosis",
+          "Animal red blood cells lack cell walls and burst (lysis/hemolysis)"
+        ],
+        "hints_en": [
+          {"step": 1, "text": "Is pure distilled water higher or lower in solute concentration compared to the inside of red blood cells?"},
+          {"step": 2, "text": "Analogy: Overinflating a fragile water balloon until the rubber stretches past its limit and pops."},
+          {"step": 3, "text": "Walkthrough: Pure water creates a hypotonic environment. Water rushes into the red blood cells via osmosis. Without a rigid cell wall, the cell membranes burst (hemolysis)."},
+          {"step": 4, "text": "Solution: The hypotonic shock causes massive red blood cell lysis (bursting), which destroys oxygen transport capacity and causes fatal organ failure."}
+        ],
+        "hints_ta": [
+          {"step": 1, "text": "சிவப்பணுக்களின் உள்பகுதியோடு ஒப்பிடும்போது தூய நீரின் அடர்த்தி குறைவா அல்லது அதிகமா?"},
+          {"step": 2, "text": "உவமை: ஒரு சிறிய பலூனில் அதிகப்படியான நீரை நிரப்பும்போது அது வெடிப்பது போன்றது."},
+          {"step": 3, "text": "விளக்கம்: தூய நீர் ஹைபோடோனிக் (hypotonic) சூழலை உருவாக்குகிறது. சவ்வூடு பரவல் மூலம் நீர் சிவப்பணுக்களுக்குள் பாய்கிறது. செல் சுவர் இல்லாததால் செல்கள் வீங்கி வெடிக்கும்."},
+          {"step": 4, "text": "தீர்வு: சிவப்பணுக்கள் வெடித்து (Hemolysis) ரத்த ஓட்டம் மற்றும் ஆக்ஸிஜன் கடத்தும் திறன் அழியும்."}
+        ],
+        "hints_hi": [
+          {"step": 1, "text": "लाल रक्त कोशिकाओं की तुलना में शुद्ध पानी हाइपोटोनिक (कम सांद्रता वाला) है या हाइपरटोनिक?"},
+          {"step": 2, "text": "सादृश्य: एक पानी के गुब्बारे में अत्यधिक पानी भरने पर उसका फट जाना।"},
+          {"step": 3, "text": "विवरण: शुद्ध पानी हाइपोटोनिक वातावरण बनाता है। परासरण (osmosis) द्वारा पानी कोशिकाओं में घुसता है और कोशिका दीवार न होने के कारण वे फट जाती हैं (Hemolysis)।"},
+          {"step": 4, "text": "समाधान: हाइपोटोनिक प्रभाव से लाल रक्त कोशिकाएं फट जाती हैं, जिससे ऑक्सीजन प्रवाह रुक जाता है और यह जानलेवा साबित होता है।"}
+        ]
+      }
+    ]
+  }
+]

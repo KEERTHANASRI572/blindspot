@@ -1,0 +1,254 @@
+[
+  {
+    "id": "MISC-OS-01",
+    "topic": "Operating Systems",
+    "category": "Deadlock",
+    "name": "Circular Wait Implies Deadlock with Multi-Unit Resources",
+    "description": "Believing a cycle in a Resource Allocation Graph (RAG) always guarantees deadlock, ignoring available multiple instances.",
+    "error_type": "Oversimplified Rule Application",
+    "correction": "A cycle is a necessary condition for deadlock only with single-instance resource types. With multi-instance resources, a cycle may not be a deadlock if other processes release instances."
+  },
+  {
+    "id": "MISC-OS-02",
+    "topic": "Operating Systems",
+    "category": "Deadlock",
+    "name": "Confusing Deadlock Prevention with Avoidance",
+    "description": "Assuming Banker's Algorithm prevents deadlock by eliminating one of the 4 Coffman conditions, rather than dynamically assessing safe states.",
+    "error_type": "Category Confusion",
+    "correction": "Deadlock prevention statically invalidates at least one Coffman condition; deadlock avoidance (like Banker's algorithm) allows all 4 conditions but dynamically rejects unsafe state transitions."
+  },
+  {
+    "id": "MISC-OS-03",
+    "topic": "Operating Systems",
+    "category": "Concurrency",
+    "name": "Atomic Instruction Sufficiency for Critical Section",
+    "description": "Thinking a single atomic variable increment solves race conditions across multi-step transactions.",
+    "error_type": "Scope Generalization",
+    "correction": "Atomic single-variable operations only protect individual updates. Multi-step read-modify-write workflows still require transactional mutual exclusion or locks."
+  },
+  {
+    "id": "MISC-OS-04",
+    "topic": "Operating Systems",
+    "category": "Memory Management",
+    "name": "Virtual Memory Equals Swap Space",
+    "description": "Assuming virtual memory is just disk paging/swap space rather than an abstraction providing private linear address spaces.",
+    "error_type": "Concept Reduction",
+    "correction": "Virtual memory is a memory management technique providing each process an isolated address space mapped to physical RAM via page tables; swap space is merely an overflow backing store."
+  },
+  {
+    "id": "MISC-OS-05",
+    "topic": "Operating Systems",
+    "category": "Scheduling",
+    "name": "Preemptive Scheduling Eliminates Starvation",
+    "description": "Believing preemptive priority scheduling prevents low-priority processes from starving.",
+    "error_type": "Inverted Invariant",
+    "correction": "Priority scheduling with preemption can cause severe starvation for lower priority tasks unless aging techniques are explicitly applied."
+  },
+  {
+    "id": "MISC-OS-06",
+    "topic": "Operating Systems",
+    "category": "Deadlock",
+    "name": "Safe State Equals Deadlock-Free Execution Guarantee",
+    "description": "Believing that entering an unsafe state guarantees an immediate deadlock.",
+    "error_type": "Probabilistic Confusion",
+    "correction": "An unsafe state is not a deadlock; it is merely a state from which the OS cannot guarantee all processes will finish if all request their maximum claims simultaneously."
+  },
+  {
+    "id": "MISC-DB-01",
+    "topic": "DBMS",
+    "category": "Indexing",
+    "name": "Adding Indexes Always Accelerates Queries Without Tradeoffs",
+    "description": "Believing secondary indexes improve all operations, ignoring write amplification and maintenance overhead.",
+    "error_type": "One-Sided Tradeoff Neglect",
+    "correction": "Every additional index requires synchronous updates on INSERT, UPDATE, and DELETE operations, slowing write throughput and consuming memory buffers."
+  },
+  {
+    "id": "MISC-DB-02",
+    "topic": "DBMS",
+    "category": "Indexing",
+    "name": "Composite Index Column Order Irrelevance",
+    "description": "Thinking an index on (A, B, C) can efficiently satisfy a query filtering exclusively on WHERE B = 5.",
+    "error_type": "Left-Prefix Rule Violation",
+    "correction": "B-Tree composite indexes follow the leftmost prefix rule. A query filtering only on 'B' cannot utilize the (A, B) index hierarchically without scanning or index skip scans."
+  },
+  {
+    "id": "MISC-DB-03",
+    "topic": "DBMS",
+    "category": "Transactions",
+    "name": "READ COMMITTED Prevents Non-Repeatable Reads",
+    "description": "Assuming READ COMMITTED isolation level guarantees the same SELECT query in a transaction yields identical rows.",
+    "error_type": "Isolation Level Misattribution",
+    "correction": "READ COMMITTED prevents dirty reads, but another transaction can commit changes between two reads, causing non-repeatable reads. REPEATABLE READ is required."
+  },
+  {
+    "id": "MISC-DB-04",
+    "topic": "DBMS",
+    "category": "Normalization",
+    "name": "Higher Normal Form Always Equals Higher Performance",
+    "description": "Believing BCNF/3NF always outperforms 2NF or denormalized schemas in production read workloads.",
+    "error_type": "Theoretical vs Practical Disconnect",
+    "correction": "Higher normal forms minimize redundancy and update anomalies, but introduce heavy JOIN overhead for complex analytical read queries."
+  },
+  {
+    "id": "MISC-DB-05",
+    "topic": "DBMS",
+    "category": "Storage",
+    "name": "Clustered Index Copies Data Rows",
+    "description": "Thinking a table can have multiple clustered indexes that duplicate the entire row store.",
+    "error_type": "Physical Storage Misconception",
+    "correction": "The clustered index IS the physical ordering of the data rows in the leaf pages. Therefore, a table can only have one clustered index."
+  },
+  {
+    "id": "MISC-DB-06",
+    "topic": "DBMS",
+    "category": "ACID",
+    "name": "Atomicity Means Thread-Safe Concurrency",
+    "description": "Confusing Atomicity (all-or-nothing completion) with Isolation (concurrency protection).",
+    "error_type": "Category Confusion",
+    "correction": "Atomicity guarantees state rollbacks upon failure; Isolation guarantees concurrent transactions do not interfere with each other."
+  },
+  {
+    "id": "MISC-NET-01",
+    "topic": "Computer Networks",
+    "category": "Transport Layer",
+    "name": "TCP Fast Retransmit Relies on Timeout Expiration",
+    "description": "Believing TCP must wait for the Retransmission Timeout (RTO) before retransmitting a lost packet.",
+    "error_type": "Mechanism Conflation",
+    "correction": "Fast Retransmit triggers immediately upon receiving 3 duplicate ACKs without waiting for the timer-based RTO to expire."
+  },
+  {
+    "id": "MISC-NET-02",
+    "topic": "Computer Networks",
+    "category": "Transport Layer",
+    "name": "UDP Lacks Reliability Because It Corrupts Packets",
+    "description": "Thinking UDP does not perform checksums and delivers corrupt bitstreams.",
+    "error_type": "Attribution Error",
+    "correction": "UDP has an optional/mandatory checksum to detect and discard corrupted packets; it simply does not provide ACKs, retransmissions, or ordering."
+  },
+  {
+    "id": "MISC-NET-03",
+    "topic": "Computer Networks",
+    "category": "Flow vs Congestion",
+    "name": "Flow Control and Congestion Control Are the Same",
+    "description": "Treating receiver buffer management (Flow Control) as network bottleneck management (Congestion Control).",
+    "error_type": "Scope Confusion",
+    "correction": "Flow control protects the destination receiver's buffer (rwnd), while congestion control protects the intermediate network routers (cwnd)."
+  },
+  {
+    "id": "MISC-NET-04",
+    "topic": "Computer Networks",
+    "category": "Application Layer",
+    "name": "HTTP/2 Completely Solves Head-of-Line Blocking",
+    "description": "Believing HTTP/2 stream multiplexing eliminates packet loss Head-of-Line blocking at the TCP layer.",
+    "error_type": "Layer Boundary Blindness",
+    "correction": "HTTP/2 multiplexes streams over a single TCP connection; if one TCP packet is dropped, ALL multiplexed streams are blocked at TCP layer. HTTP/3 (QUIC/UDP) solves this."
+  },
+  {
+    "id": "MISC-NET-05",
+    "topic": "Computer Networks",
+    "category": "Routing",
+    "name": "Distance Vector Protocols Have Global Topology Maps",
+    "description": "Assuming RIP/Distance-Vector algorithms know the full global network topology like OSPF (Link State).",
+    "error_type": "Algorithmic Inversion",
+    "correction": "Distance Vector protocols only know vector distance and next-hop direction ('routing by rumor'), whereas Link State protocols construct the full topology graph."
+  },
+  {
+    "id": "MISC-DS-01",
+    "topic": "Data Structures & Algorithms",
+    "category": "Hash Tables",
+    "name": "Hash Table Lookups Are Unconditionally O(1)",
+    "description": "Ignoring worst-case collision degradation to O(n) under pathological hash distributions or HashDoS attacks.",
+    "error_type": "Worst-Case Neglect",
+    "correction": "Hash table operations are O(1) average case, but degrade to O(N) when all keys hash to the same bucket (or O(log N) with red-black tree buckets)."
+  },
+  {
+    "id": "MISC-DS-02",
+    "topic": "Data Structures & Algorithms",
+    "category": "Trees",
+    "name": "Binary Search Tree Always Guarantees O(log n) Operations",
+    "description": "Forgetting that un-balanced BSTs degenerate into linked lists of depth O(n) on sorted insertions.",
+    "error_type": "Invariant Neglect",
+    "correction": "A regular BST requires explicit self-balancing (AVL, Red-Black) to guarantee O(log N) height; without it, sorted inputs produce an O(N) degenerate skew."
+  },
+  {
+    "id": "MISC-DS-03",
+    "topic": "Data Structures & Algorithms",
+    "category": "Sorting",
+    "name": "QuickSort In-Place Means O(1) Auxiliary Space",
+    "description": "Overlooking the recursive call stack space of O(log n) to O(n).",
+    "error_type": "Hidden State Neglect",
+    "correction": "While QuickSort modifies the array in-place, the recursion call stack requires O(log N) auxiliary space (or O(N) worst case)."
+  },
+  {
+    "id": "MISC-DS-04",
+    "topic": "Data Structures & Algorithms",
+    "category": "Dynamic Programming",
+    "name": "Greedy Choice Always Yields Global Optimal for Knapsack",
+    "description": "Assuming greedy density sorting works for 0/1 Knapsack just because it works for Fractional Knapsack.",
+    "error_type": "Inductive Generalization",
+    "correction": "0/1 Knapsack exhibits overlapping subproblems requiring Dynamic Programming because discrete item indivisibility breaks the greedy choice property."
+  },
+  {
+    "id": "MISC-DS-05",
+    "topic": "Data Structures & Algorithms",
+    "category": "Graphs",
+    "name": "Dijkstra Algorithm Handles Negative Weight Edges If No Negative Cycles",
+    "description": "Believing Dijkstra's algorithm correctly calculates shortest paths with negative edges as long as there are no negative cycles.",
+    "error_type": "Precondition Blindness",
+    "correction": "Dijkstra greedily marks nodes as visited assuming paths can only grow longer. Negative weights violate this monotonic assumption; Bellman-Ford must be used."
+  },
+  {
+    "id": "MISC-ML-01",
+    "topic": "Machine Learning",
+    "category": "Evaluation",
+    "name": "High Accuracy on Imbalanced Data Means Good Model Performance",
+    "description": "Relying on raw accuracy when 99% of samples belong to the negative class.",
+    "error_type": "Metric Distortion",
+    "correction": "With severe class imbalance, a naive majority-class classifier achieves high accuracy while failing to detect the minority class. Precision, Recall, PR-AUC or F1-score are necessary."
+  },
+  {
+    "id": "MISC-ML-02",
+    "topic": "Machine Learning",
+    "category": "Generalization",
+    "name": "Zero Training Error Implies Perfect Learning",
+    "description": "Equating 100% training accuracy with superior intelligence rather than catastrophic overfitting.",
+    "error_type": "Overfitting Blindness",
+    "correction": "Zero training loss often indicates the model has memorized training noise and will fail to generalize to unseen test distributions."
+  },
+  {
+    "id": "MISC-ML-03",
+    "topic": "Machine Learning",
+    "category": "Causality",
+    "name": "High Feature Correlation Implies Causal Importance",
+    "description": "Assuming strongly correlated features are root causes of the target variable.",
+    "error_type": "Correlation as Causation",
+    "correction": "Correlation measures linear association, not directionality or confounding factors. Confounders can induce spurious correlations."
+  },
+  {
+    "id": "MISC-ML-04",
+    "topic": "Machine Learning",
+    "category": "Deep Learning",
+    "name": "Adding More Layers Always Improves Representation",
+    "description": "Assuming deeper neural networks unconditionally learn better without vanishing gradients or degradation problems.",
+    "error_type": "Scale Fallacy",
+    "correction": "Without residual connections, normalization, and careful initialization, deeper networks suffer from gradient vanishing/exploding and optimization degradation."
+  },
+  {
+    "id": "MISC-ML-05",
+    "topic": "Machine Learning",
+    "category": "Feature Engineering",
+    "name": "Scaling Features Is Unnecessary for Distance-Based Algorithms",
+    "description": "Applying KNN or SVM without normalizing numerical features of differing scales.",
+    "error_type": "Dimensional Dominance Blindness",
+    "correction": "Distance metrics (Euclidean) are dominated by features with large absolute ranges, effectively muting smaller-scale informative features unless standardized."
+  },
+  {
+    "id": "MISC-ML-06",
+    "topic": "Machine Learning",
+    "category": "Validation",
+    "name": "Fitting Scaler on Entire Dataset Before Train-Test Split",
+    "description": "Standardizing the entire dataset before splitting, leading to data leakage.",
+    "error_type": "Data Leakage",
+    "correction": "Fitting transformers/scalers on the full dataset leaks test set statistics (mean, variance) into training, artificially inflating evaluation metrics."
+  }
+]

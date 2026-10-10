@@ -1,0 +1,177 @@
+[
+  {
+    "id": "misc_cs_circular_wait",
+    "subject": "Computer Science",
+    "name": "Circular Wait Always Causes Deadlock",
+    "description": "Believing any cycle in resource allocation causes deadlock even when multiple resource units allow one process to finish and break the cycle.",
+    "error_type": "Overgeneralization"
+  },
+  {
+    "id": "misc_cs_mutex_prevention",
+    "subject": "Computer Science",
+    "name": "Mutual Exclusion Can Be Removed Easily",
+    "description": "Assuming mutual exclusion can simply be eliminated for hardware resources like printers or write locks.",
+    "error_type": "Oversimplification"
+  },
+  {
+    "id": "misc_cs_threads_free_parallelism",
+    "subject": "Computer Science",
+    "name": "More Threads Always Means Faster Execution",
+    "description": "Ignoring context switching overhead, lock contention, and Amdahl's Law when spawning threads.",
+    "error_type": "Linear Thinking"
+  },
+  {
+    "id": "misc_cs_virtual_memory_speed",
+    "subject": "Computer Science",
+    "name": "Virtual Memory Makes RAM Faster",
+    "description": "Confusing address space abstraction with hardware speed, ignoring page fault disk latency.",
+    "error_type": "Category Confusion"
+  },
+  {
+    "id": "misc_cs_hash_table_o1_guarantee",
+    "subject": "Computer Science",
+    "name": "Hash Tables are Always O(1) in Worst Case",
+    "description": "Ignoring hash collisions and adversarial keys that degrade hash table lookups to O(N).",
+    "error_type": "Edge Case Neglect"
+  },
+  {
+    "id": "misc_phys_force_velocity",
+    "subject": "Physics",
+    "name": "Motion Requires a Continuous Net Force",
+    "description": "Believing an object moving at constant velocity must have a net forward force pushing it (Aristotelian fallacy).",
+    "error_type": "Intuitive Physics Bias"
+  },
+  {
+    "id": "misc_phys_heavier_falls_faster",
+    "subject": "Physics",
+    "name": "Heavier Objects Always Fall Faster in Vacuum",
+    "description": "Confusing gravitational force (which scales with mass) with acceleration g = F/m (which is constant).",
+    "error_type": "Ratio Confusion"
+  },
+  {
+    "id": "misc_phys_elevator_normal_force",
+    "subject": "Physics",
+    "name": "Scale Reading in Elevator is Always Equal to mg",
+    "description": "Ignoring apparent weight N = m(g + a) during acceleration and deceleration phases.",
+    "error_type": "Frame of Reference Neglect"
+  },
+  {
+    "id": "misc_phys_friction_opposes_motion",
+    "subject": "Physics",
+    "name": "Friction Always Acts in the Direction Opposite to Movement",
+    "description": "Failing to realize static friction between tyres/feet and the ground actually propels walkers and cars forward.",
+    "error_type": "Directional Inversion"
+  },
+  {
+    "id": "misc_phys_action_reaction_cancel",
+    "subject": "Physics",
+    "name": "Action-Reaction Pairs Cancel Each Other Out",
+    "description": "Thinking Newton's 3rd Law forces cancel, failing to recognize they act on two distinct objects.",
+    "error_type": "System Boundary Error"
+  },
+  {
+    "id": "misc_math_base_rate_fallacy",
+    "subject": "Mathematics",
+    "name": "Base Rate Neglect in Diagnostic Tests",
+    "description": "Assuming a 99% accurate test means 99% probability of disease without factoring in low population prevalence.",
+    "error_type": "Probabilistic Fallacy"
+  },
+  {
+    "id": "misc_math_gamblers_fallacy",
+    "subject": "Mathematics",
+    "name": "The Gambler's Fallacy in Independent Events",
+    "description": "Believing a coin that landed heads 5 times in a row is 'due' to land on tails next.",
+    "error_type": "Independence Neglect"
+  },
+  {
+    "id": "misc_math_correlation_causation",
+    "subject": "Mathematics",
+    "name": "Confusing Correlation with Causation",
+    "description": "Assuming that because two variables trend together, one must directly cause the other without confounding variables.",
+    "error_type": "Confounding Variable Neglect"
+  },
+  {
+    "id": "misc_math_averaging_percentages",
+    "subject": "Mathematics",
+    "name": "Averaging Percentages with Different Sample Sizes",
+    "description": "Calculating (A% + B%)/2 directly instead of weighting by group sizes (Simpson's Paradox).",
+    "error_type": "Weighted Average Neglect"
+  },
+  {
+    "id": "misc_math_zero_probability_impossible",
+    "subject": "Mathematics",
+    "name": "Probability Zero Means Event is Impossible",
+    "description": "Failing to distinguish between impossible events and single points in continuous probability distributions.",
+    "error_type": "Continuous vs Discrete Confusion"
+  },
+  {
+    "id": "misc_chem_equilibrium_equal_conc",
+    "subject": "Chemistry",
+    "name": "Equilibrium Means Equal Reactant and Product Amounts",
+    "description": "Confusing equal reaction rates (forward = reverse) with equal concentrations.",
+    "error_type": "Rate vs Quantity Confusion"
+  },
+  {
+    "id": "misc_chem_catalyst_yield",
+    "subject": "Chemistry",
+    "name": "Catalysts Shift Equilibrium to Increase Maximum Yield",
+    "description": "Believing a catalyst increases product yield rather than simply speeding up the time to reach equilibrium.",
+    "error_type": "Thermodynamics vs Kinetics Confusion"
+  },
+  {
+    "id": "misc_chem_le_chatelier_pressure",
+    "subject": "Chemistry",
+    "name": "Increasing Pressure Always Shifts Any Reaction",
+    "description": "Ignoring that pressure only shifts equilibrium if there is a difference in moles of gas between reactants and products.",
+    "error_type": "Condition Blindness"
+  },
+  {
+    "id": "misc_chem_boiling_breaks_covalent_bonds",
+    "subject": "Chemistry",
+    "name": "Boiling Water Breaks H-O Covalent Bonds",
+    "description": "Confusing intermolecular hydrogen bonding breakdown with intramolecular covalent bond cleavage.",
+    "error_type": "Scale & Bond Level Confusion"
+  },
+  {
+    "id": "misc_chem_exothermic_requires_no_heat",
+    "subject": "Chemistry",
+    "name": "Exothermic Reactions Need No Activation Energy",
+    "description": "Believing that because energy is released overall, the reaction starts spontaneously without activation energy.",
+    "error_type": "Energy Barrier Neglect"
+  },
+  {
+    "id": "misc_bio_osmosis_water_moves_to_water",
+    "subject": "Biology",
+    "name": "Osmosis Moves Solute Instead of Water",
+    "description": "Confusing solvent flow (water moving to higher solute concentration) with solute diffusion.",
+    "error_type": "Solvent/Solute Inversion"
+  },
+  {
+    "id": "misc_bio_respiration_equals_breathing",
+    "subject": "Biology",
+    "name": "Cellular Respiration is Just Inhaling and Exhaling",
+    "description": "Confusing organismal ventilation with intracellular biochemical ATP synthesis in mitochondria.",
+    "error_type": "Organ vs Cellular Scale Confusion"
+  },
+  {
+    "id": "misc_bio_plants_dont_respire",
+    "subject": "Biology",
+    "name": "Plants Only Do Photosynthesis, Not Respiration",
+    "description": "Failing to realize that plant cells constantly perform cellular respiration 24/7 to power metabolism.",
+    "error_type": "Kingdom Specificity Bias"
+  },
+  {
+    "id": "misc_bio_pure_water_iv_hydration",
+    "subject": "Biology",
+    "name": "Injecting Pure Water is Best for Dehydration",
+    "description": "Ignoring hypotonic cell lysis, believing 100% distilled water hydrates faster without osmotic shock.",
+    "error_type": "Tonicity Neglect"
+  },
+  {
+    "id": "misc_bio_dominant_gene_most_common",
+    "subject": "Biology",
+    "name": "Dominant Alleles are Always the Most Common in Populations",
+    "description": "Confusing gene expression dominance with evolutionary allele frequency in natural populations.",
+    "error_type": "Frequency vs Dominance Confusion"
+  }
+]

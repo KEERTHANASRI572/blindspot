@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: blindspot-api
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt httpx"
+    startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: ADMIN_PASSWORD
+        value: "admin123"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DEMO_MODE
+        value: "true"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///./blindspot.db
+      - key: FRONTEND_URL
+        value: "*"

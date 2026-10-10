@@ -37,10 +37,11 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# CORS setup: allows only FRONTEND_URL and http://localhost:5173
+# CORS setup: allows FRONTEND_URL, all Vercel domains, and localhost
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://blindspot-livid.vercel.app",
 ]
 if settings.FRONTEND_URL:
     clean_url = settings.FRONTEND_URL.strip().rstrip("/")
@@ -49,7 +50,8 @@ if settings.FRONTEND_URL:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=allowed_origins if settings.FRONTEND_URL != "*" else ["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

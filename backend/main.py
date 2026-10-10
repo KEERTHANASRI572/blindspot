@@ -37,19 +37,19 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# CORS setup
-origins = [
+# CORS setup: allows only FRONTEND_URL and http://localhost:5173
+allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
-if settings.FRONTEND_URL and settings.FRONTEND_URL not in origins:
-    origins.append(settings.FRONTEND_URL)
-if settings.CORS_ORIGINS == "*":
-    origins = ["*"]
+if settings.FRONTEND_URL:
+    clean_url = settings.FRONTEND_URL.strip().rstrip("/")
+    if clean_url and clean_url != "*" and clean_url not in allowed_origins:
+        allowed_origins.append(clean_url)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -62,14 +62,10 @@ def on_startup():
         course_service.seed_default_courses(db)
 
 # --- HEALTH ---
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
-    return {
-        "status": "healthy",
-        "app": settings.APP_NAME,
-        "demo_mode": settings.DEMO_MODE,
-        "timestamp": datetime.datetime.utcnow().isoformat()
-    }
+    return {"status": "ok"}
 
 # ==========================================
 # AUTHENTICATION ROUTES
@@ -1156,3 +1152,7 @@ def admin_list_users(
             "average_gap": avg_gap
         })
     return res
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT)

@@ -3,7 +3,46 @@ import {
   UserProgress, AdminDashboardStats, AdminUser, Language
 } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const rawBase = (import.meta.env.VITE_API_URL || '/api').trim();
+const API_BASE = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
+type WakingListener = (isWaking: boolean) => void;
+const wakingListeners = new Set<WakingListener>();
+
+export function onServerWakingChange(listener: WakingListener) {
+  wakingListeners.add(listener);
+  return () => {
+    wakingListeners.delete(listener);
+  };
+}
+
+let activeSlowCount = 0;
+
+async function apiFetch(urlOrPath: string, init?: RequestInit): Promise<Response> {
+  const fullUrl = urlOrPath.startsWith('http://') || urlOrPath.startsWith('https://')
+    ? urlOrPath
+    : `${API_BASE}${urlOrPath.startsWith('/') ? '' : '/'}${urlOrPath}`;
+
+  let isSlow = false;
+  const timer = setTimeout(() => {
+    isSlow = true;
+    activeSlowCount++;
+    wakingListeners.forEach((cb) => cb(true));
+  }, 2500);
+
+  try {
+    const res = await fetch(fullUrl, init);
+    return res;
+  } finally {
+    clearTimeout(timer);
+    if (isSlow) {
+      activeSlowCount = Math.max(0, activeSlowCount - 1);
+      if (activeSlowCount === 0) {
+        wakingListeners.forEach((cb) => cb(false));
+      }
+    }
+  }
+}
 
 function getAuthHeaders(): HeadersInit {
   const token = localStorage.getItem('blindspot_token');
@@ -19,7 +58,7 @@ function getAuthHeaders(): HeadersInit {
 export const api = {
   // Auth
   signup: async (data: { name: string; email: string; password: string; language?: string }) => {
-    const res = await fetch(`${API_BASE}/auth/signup`, {
+    const res = await apiFetch(`/auth/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -32,7 +71,7 @@ export const api = {
   },
 
   login: async (data: { email: string; password: string }) => {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    const res = await apiFetch(`/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -45,7 +84,7 @@ export const api = {
   },
 
   adminLogin: async (password: string) => {
-    const res = await fetch(`${API_BASE}/auth/admin-login`, {
+    const res = await apiFetch(`/auth/admin-login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password }),
@@ -58,7 +97,7 @@ export const api = {
   },
 
   getMe: async () => {
-    const res = await fetch(`${API_BASE}/auth/me`, {
+    const res = await apiFetch(`/auth/me`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) return { authenticated: false };
@@ -66,7 +105,7 @@ export const api = {
   },
 
   updateLanguage: async (language: Language) => {
-    const res = await fetch(`${API_BASE}/auth/language?language=${language}`, {
+    const res = await apiFetch(`/auth/language?language=${language}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
     });
@@ -76,11 +115,14 @@ export const api = {
 
   // Learner Courses & Practice
   getPublishedCourses: async (lang: Language = 'en', search?: string): Promise<CourseListItem[]> => {
-    const url = new URL(`${window.location.origin}${API_BASE}/courses`);
+    const base = `${API_BASE}/courses`;
+    const url = base.startsWith('http://') || base.startsWith('https://')
+      ? new URL(base)
+      : new URL(base, window.location.origin);
     url.searchParams.set('lang', lang);
     if (search) url.searchParams.set('search', search);
 
-    const res = await fetch(url.toString(), {
+    const res = await apiFetch(url.toString(), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to fetch courses');
@@ -88,7 +130,7 @@ export const api = {
   },
 
   getCourseForLearner: async (courseId: string, lang: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/courses/${courseId}?lang=${lang}`, {
+    const res = await apiFetch(`/courses/${courseId}?lang=${lang}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
@@ -106,7 +148,7 @@ export const api = {
     hints_used: number;
     language?: string;
   }): Promise<PracticeResult> => {
-    const res = await fetch(`${API_BASE}/practice/submit`, {
+    const res = await apiFetch(`/practice/submit`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -119,7 +161,7 @@ export const api = {
   },
 
   getUserProgress: async (): Promise<UserProgress> => {
-    const res = await fetch(`${API_BASE}/progress/me`, {
+    const res = await apiFetch(`/progress/me`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to fetch user progress');
@@ -128,7 +170,7 @@ export const api = {
 
   // Admin APIs
   getAdminDashboard: async (): Promise<AdminDashboardStats> => {
-    const res = await fetch(`${API_BASE}/admin/dashboard`, {
+    const res = await apiFetch(`/admin/dashboard`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Admin dashboard request failed');
@@ -136,11 +178,14 @@ export const api = {
   },
 
   getAdminCourses: async (statusFilter: string = 'all', search?: string): Promise<CourseListItem[]> => {
-    const url = new URL(`${window.location.origin}${API_BASE}/admin/courses`);
+    const base = `${API_BASE}/admin/courses`;
+    const url = base.startsWith('http://') || base.startsWith('https://')
+      ? new URL(base)
+      : new URL(base, window.location.origin);
     url.searchParams.set('status_filter', statusFilter);
     if (search) url.searchParams.set('search', search);
 
-    const res = await fetch(url.toString(), {
+    const res = await apiFetch(url.toString(), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to fetch admin courses');
@@ -148,7 +193,7 @@ export const api = {
   },
 
   createCourse: async (data: { title: string; description?: string; notes?: string; difficulty?: string }) => {
-    const res = await fetch(`${API_BASE}/admin/courses`, {
+    const res = await apiFetch(`/admin/courses`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -161,7 +206,7 @@ export const api = {
   },
 
   getAdminCourseDetail: async (courseId: string): Promise<CourseDetail> => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}`, {
+    const res = await apiFetch(`/admin/courses/${courseId}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to fetch course details');
@@ -169,7 +214,7 @@ export const api = {
   },
 
   updateCourse: async (courseId: string, data: Partial<CourseDetail>) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}`, {
+    const res = await apiFetch(`/admin/courses/${courseId}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -182,7 +227,7 @@ export const api = {
   },
 
   publishCourse: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/publish`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -194,7 +239,7 @@ export const api = {
   },
 
   unpublishCourse: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/unpublish`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/unpublish`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -203,7 +248,7 @@ export const api = {
   },
 
   cancelCourse: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/cancel`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/cancel`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -212,7 +257,7 @@ export const api = {
   },
 
   restoreCourse: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/restore`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/restore`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -221,7 +266,7 @@ export const api = {
   },
 
   deleteCourse: async (courseId: string, confirmTitle: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}`, {
+    const res = await apiFetch(`/admin/courses/${courseId}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
       body: JSON.stringify({ confirm_title: confirmTitle }),
@@ -234,7 +279,7 @@ export const api = {
   },
 
   duplicateCourse: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/duplicate`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/duplicate`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -243,7 +288,7 @@ export const api = {
   },
 
   loadSampleCourse: async () => {
-    const res = await fetch(`${API_BASE}/admin/courses/load-sample`, {
+    const res = await apiFetch(`/admin/courses/load-sample`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -252,7 +297,7 @@ export const api = {
   },
 
   regenerateAllQuestions: async (courseId: string) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/regenerate-all`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/regenerate-all`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -261,7 +306,7 @@ export const api = {
   },
 
   addQuestionManual: async (courseId: string, data: any) => {
-    const res = await fetch(`${API_BASE}/admin/courses/${courseId}/questions`, {
+    const res = await apiFetch(`/admin/courses/${courseId}/questions`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -271,7 +316,7 @@ export const api = {
   },
 
   updateQuestion: async (questionId: string, data: any) => {
-    const res = await fetch(`${API_BASE}/admin/questions/${questionId}`, {
+    const res = await apiFetch(`/admin/questions/${questionId}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -281,7 +326,7 @@ export const api = {
   },
 
   deleteQuestion: async (questionId: string) => {
-    const res = await fetch(`${API_BASE}/admin/questions/${questionId}`, {
+    const res = await apiFetch(`/admin/questions/${questionId}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
@@ -290,7 +335,7 @@ export const api = {
   },
 
   getJobStatus: async (jobId: string) => {
-    const res = await fetch(`${API_BASE}/admin/jobs/${jobId}`, {
+    const res = await apiFetch(`/admin/jobs/${jobId}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to get job status');
@@ -298,7 +343,7 @@ export const api = {
   },
 
   cancelJob: async (jobId: string) => {
-    const res = await fetch(`${API_BASE}/admin/jobs/${jobId}/cancel`, {
+    const res = await apiFetch(`/admin/jobs/${jobId}/cancel`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -307,7 +352,7 @@ export const api = {
   },
 
   getAdminUsers: async (): Promise<AdminUser[]> => {
-    const res = await fetch(`${API_BASE}/admin/users`, {
+    const res = await apiFetch(`/admin/users`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to fetch users');
@@ -316,7 +361,7 @@ export const api = {
 
   // Teach a Friend (Confused Student Mode)
   startTeach: async (courseId: string, conceptName: string, language: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/teach/start`, {
+    const res = await apiFetch(`/teach/start`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ course_id: courseId, concept_name: conceptName, language }),
@@ -326,7 +371,7 @@ export const api = {
   },
 
   sendTeachChat: async (sessionId: string, message: string, history: any[], language: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/teach/chat`, {
+    const res = await apiFetch(`/teach/chat`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ session_id: sessionId, message, history, language }),
@@ -336,7 +381,7 @@ export const api = {
   },
 
   evaluateTeach: async (sessionId: string, history: any[]) => {
-    const res = await fetch(`${API_BASE}/teach/evaluate`, {
+    const res = await apiFetch(`/teach/evaluate`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ session_id: sessionId, history }),
@@ -347,7 +392,7 @@ export const api = {
 
   // Viva Simulator
   startViva: async (courseId: string, title: string, language: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/viva/start`, {
+    const res = await apiFetch(`/viva/start`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ course_id: courseId, title, language }),
@@ -357,7 +402,7 @@ export const api = {
   },
 
   sendVivaAnswer: async (vivaSessionId: string, answer: string, language: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/viva/answer`, {
+    const res = await apiFetch(`/viva/answer`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ viva_session_id: vivaSessionId, answer, language }),
@@ -367,7 +412,7 @@ export const api = {
   },
 
   getVivaReport: async (vivaSessionId: string, language: Language = 'en') => {
-    const res = await fetch(`${API_BASE}/viva/report`, {
+    const res = await apiFetch(`/viva/report`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ viva_session_id: vivaSessionId, language }),
@@ -378,11 +423,10 @@ export const api = {
 
   // Class Results (Study Lab)
   getClassResults: async (courseId: string = 'all') => {
-    const res = await fetch(`${API_BASE}/admin/class-results?course_id=${courseId}`, {
+    const res = await apiFetch(`/admin/class-results?course_id=${courseId}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Failed to load class results');
     return res.json();
   },
 };
-

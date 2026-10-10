@@ -2,7 +2,8 @@
   "app": {
     "title": "BLINDSPOT",
     "subtitle": "Check if you really understand, not just remember.",
-    "tagline": "How sure you felt vs how correct you were"
+    "tagline": "How sure you felt vs how correct you were",
+    "wakingServer": "Waking up the server, this can take up to a minute..."
   },
   "nav": {
     "home": "Home",

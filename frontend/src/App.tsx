@@ -12,15 +12,23 @@ import { AdminCourseEditorPage } from './pages/AdminCourseEditorPage';
 import { AdminUsersPage } from './pages/AdminUsersPage';
 import { AdminClassResultsPage } from './pages/AdminClassResultsPage';
 import { ToastContainer, ToastMessage } from './components/Toast';
-import { api } from './services/api';
+import { RefreshCw } from 'lucide-react';
+import { api, onServerWakingChange } from './services/api';
 import { User, CourseListItem, Language } from './types';
 
 export const App: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [language, setLanguage] = useState<Language>(
     (localStorage.getItem('i18nextLng') as Language) || 'en'
   );
+
+  // Server waking state for slow initial cloud spin-ups
+  const [isServerWaking, setIsServerWaking] = useState(false);
+
+  useEffect(() => {
+    return onServerWakingChange(setIsServerWaking);
+  }, []);
 
   // User & Auth State
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -254,6 +262,14 @@ export const App: React.FC = () => {
           </>
         )}
       </main>
+
+      {/* Server Waking Indicator */}
+      {isServerWaking && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-5 py-2.5 rounded-2xl font-bold text-xs shadow-2xl flex items-center gap-2.5 border border-amber-300/40 animate-pulse pointer-events-none">
+          <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+          <span>{t('app.wakingServer')}</span>
+        </div>
+      )}
 
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} onRemove={removeToast} />

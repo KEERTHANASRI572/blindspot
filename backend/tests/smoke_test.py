@@ -17,7 +17,7 @@ def test_full_simplified_pipeline_smoke():
     # 1. Health check
     res_health = client.get("/api/health")
     assert res_health.status_code == 200
-    assert res_health.json()["status"] == "healthy"
+    assert res_health.json()["status"] == "ok"
 
     # 2. Admin Login
     res_admin_login = client.post("/api/auth/admin-login", json={"password": settings.ADMIN_PASSWORD})

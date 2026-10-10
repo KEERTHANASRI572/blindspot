@@ -57,9 +57,13 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    init_db()
-    with SessionLocal() as db:
-        course_service.seed_default_courses(db)
+    try:
+        init_db()
+        with SessionLocal() as db:
+            course_service.seed_default_courses(db)
+        print("Database initialized and default courses seeded successfully.")
+    except Exception as e:
+        print(f"Warning during startup DB init: {e}")
 
 # --- HEALTH ---
 @app.get("/health")
@@ -1155,4 +1159,6 @@ def admin_list_users(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT)
+    port = int(os.getenv("PORT", "8000"))
+    print(f"Starting BLINDSPOT API on port {port}...")
+    uvicorn.run("main:app", host="0.0.0.0", port=port, log_level="info")

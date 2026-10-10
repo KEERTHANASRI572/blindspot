@@ -1,11 +1,14 @@
 # 🎯 BLINDSPOT: Real-World Conceptual Practice & Confidence Gap Diagnostics
 *Built for the **ForgeHacks 2026 Hackathon** — Track: **AI + Education***
 
-[![CI Tests](https://img.shields.io/badge/Tests-19%20Passed-emerald.svg)](https://github.com/forgehacks/blindspot)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite%20%2B%20TS-61DAFB.svg)](https://react.dev/)
-[![i18n](https://img.shields.io/badge/Localization-EN%20%7C%20TA%20%7C%20HI-indigo.svg)](https://react.i18next.com/)
-[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-8E75B2.svg)](https://ai.google.dev/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black.svg?style=for-the-badge&logo=vercel)](https://blindspot-livid.vercel.app)
+[![Backend API](https://img.shields.io/badge/API%20Docs-Render-46E3B7.svg?style=for-the-badge&logo=render)](https://blindspot-api-pbim.onrender.com/docs)
+[![Tests](https://img.shields.io/badge/Tests-24%20Passed-emerald.svg?style=for-the-badge)](https://github.com/KEERTHANASRI572/blindspot)
+
+### 🌐 Live Deployment
+- 🔗 **Frontend Web App:** [https://blindspot-livid.vercel.app](https://blindspot-livid.vercel.app)
+- ⚙️ **Backend REST API & Swagger:** [https://blindspot-api-pbim.onrender.com/docs](https://blindspot-api-pbim.onrender.com/docs)
+- 💚 **Health Endpoint:** [https://blindspot-api-pbim.onrender.com/health](https://blindspot-api-pbim.onrender.com/health)
 
 ---
 
